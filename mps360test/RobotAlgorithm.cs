@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mps360test.Enums;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,14 +15,14 @@ namespace mps360test
             {
                 switch (path[i])
                 {
-                    case 'L':
-                        PovorotLeft(robot);
+                    case (char)StepOfThePath.L:
+                        TurnLeft(robot);
                         break;
-                    case 'R':
-                        PovorotRight(robot);
+                    case (char)StepOfThePath.R:
+                        TurnRight(robot);
                         break;
-                    case 'F':
-                        if (robot.WorldSide == 'N' || robot.WorldSide == 'S')
+                    case (char)StepOfThePath.F:
+                        if (robot.WorldSide == (char)CardinalDirections.N || robot.WorldSide == (char)CardinalDirections.S)
                         {
                             isLost = !yAxisStep(robot);
                         }
@@ -39,39 +40,39 @@ namespace mps360test
             return robot.ToString();
         }
 
-        public void PovorotLeft(Robot robot)
+        public void TurnLeft(Robot robot)
         {
             switch (robot.WorldSide)
             {
-                case 'N':
-                    robot.WorldSide = 'W';
+                case (char)CardinalDirections.N:
+                    robot.WorldSide = (char)CardinalDirections.W;
                     break;
-                case 'E':
-                    robot.WorldSide = 'N';
+                case (char)CardinalDirections.E:
+                    robot.WorldSide = (char)CardinalDirections.N;
                     break;
-                case 'S':
-                    robot.WorldSide = 'E';
+                case (char)CardinalDirections.S:
+                    robot.WorldSide = (char)CardinalDirections.E;
                     break;
-                case 'W':
-                    robot.WorldSide = 'S';
+                case (char)CardinalDirections.W:
+                    robot.WorldSide = (char)CardinalDirections.S;
                     break;
             }
         }
-        public void PovorotRight(Robot robot)
+        public void TurnRight(Robot robot)
         {
             switch (robot.WorldSide)
             {
-                case 'N':
-                    robot.WorldSide = 'E';
+                case (char)CardinalDirections.N:
+                    robot.WorldSide = (char)CardinalDirections.E;
                     break;
-                case 'E':
-                    robot.WorldSide = 'S';
+                case (char)CardinalDirections.E:
+                    robot.WorldSide = (char)CardinalDirections.S;
                     break;
-                case 'S':
-                    robot.WorldSide = 'W';
+                case (char)CardinalDirections.S:
+                    robot.WorldSide = (char)CardinalDirections.W;
                     break;
-                case 'W':
-                    robot.WorldSide = 'N';
+                case (char)CardinalDirections.W:
+                    robot.WorldSide = (char)CardinalDirections.N;
                     break;
             }
         }
@@ -80,10 +81,10 @@ namespace mps360test
         {
             switch (robot.WorldSide)
             {
-                case 'N':
+                case (char)CardinalDirections.N:
                     robot.AxisY++;
                     break;
-                case 'S':
+                case (char)CardinalDirections.S:
                     robot.AxisY--;
                     break;
             }
@@ -103,10 +104,10 @@ namespace mps360test
         {
             switch (robot.WorldSide)
             {
-                case 'E':
+                case (char)CardinalDirections.E:
                     robot.AxisX++;
                     break;
-                case 'W':
+                case (char)CardinalDirections.W:
                     robot.AxisX--;
                     break;
             }
