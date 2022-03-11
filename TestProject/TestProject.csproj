@@ -19,4 +19,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\mps360test\mps360test.csproj" />
+  </ItemGroup>
+
 </Project>

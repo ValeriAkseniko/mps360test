@@ -23,7 +23,7 @@ namespace mps360test
                         TurnRight(robot);
                         break;
                     case (char)StepOfThePath.F:
-                        if (robot.WorldSide == (char)CardinalDirections.N || robot.WorldSide == (char)CardinalDirections.S)
+                        if (robot.WorldSide == CardinalDirections.N || robot.WorldSide == CardinalDirections.S)
                         {
                             isLost = !yAxisStep(robot);
                         }
@@ -45,17 +45,17 @@ namespace mps360test
         {
             switch (robot.WorldSide)
             {
-                case (char)CardinalDirections.N:
-                    robot.WorldSide = (char)CardinalDirections.W;
+                case CardinalDirections.N:
+                    robot.WorldSide = CardinalDirections.W;
                     break;
-                case (char)CardinalDirections.E:
-                    robot.WorldSide = (char)CardinalDirections.N;
+                case CardinalDirections.E:
+                    robot.WorldSide = CardinalDirections.N;
                     break;
-                case (char)CardinalDirections.S:
-                    robot.WorldSide = (char)CardinalDirections.E;
+                case CardinalDirections.S:
+                    robot.WorldSide = CardinalDirections.E;
                     break;
-                case (char)CardinalDirections.W:
-                    robot.WorldSide = (char)CardinalDirections.S;
+                case CardinalDirections.W:
+                    robot.WorldSide = CardinalDirections.S;
                     break;
             }
         }
@@ -63,17 +63,17 @@ namespace mps360test
         {
             switch (robot.WorldSide)
             {
-                case (char)CardinalDirections.N:
-                    robot.WorldSide = (char)CardinalDirections.E;
+                case CardinalDirections.N:
+                    robot.WorldSide = CardinalDirections.E;
                     break;
-                case (char)CardinalDirections.E:
-                    robot.WorldSide = (char)CardinalDirections.S;
+                case CardinalDirections.E:
+                    robot.WorldSide = CardinalDirections.S;
                     break;
-                case (char)CardinalDirections.S:
-                    robot.WorldSide = (char)CardinalDirections.W;
+                case CardinalDirections.S:
+                    robot.WorldSide = CardinalDirections.W;
                     break;
-                case (char)CardinalDirections.W:
-                    robot.WorldSide = (char)CardinalDirections.N;
+                case CardinalDirections.W:
+                    robot.WorldSide = CardinalDirections.N;
                     break;
             }
         }
@@ -82,10 +82,10 @@ namespace mps360test
         {
             switch (robot.WorldSide)
             {
-                case (char)CardinalDirections.N:
+                case CardinalDirections.N:
                     robot.AxisY++;
                     break;
-                case (char)CardinalDirections.S:
+                case CardinalDirections.S:
                     robot.AxisY--;
                     break;
             }
@@ -101,14 +101,14 @@ namespace mps360test
             }
             return true;
         }
-        public bool xAxisStep(Robot robot)
+        public bool xAxisStep(Robot robot)  
         {
             switch (robot.WorldSide)
             {
-                case (char)CardinalDirections.E:
+                case CardinalDirections.E:
                     robot.AxisX++;
                     break;
-                case (char)CardinalDirections.W:
+                case CardinalDirections.W:
                     robot.AxisX--;
                     break;
             }

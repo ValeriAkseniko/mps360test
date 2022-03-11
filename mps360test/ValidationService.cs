@@ -15,7 +15,7 @@ namespace mps360test
 
         public bool ValidationPath(string path)
         {
-            if (Regex.IsMatch(path, @"[^\s][LRF]"))
+            if (Regex.IsMatch(path, @"^[LRF]+$"))
             {
                 return true;
             }

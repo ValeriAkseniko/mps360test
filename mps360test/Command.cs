@@ -7,6 +7,11 @@ namespace mps360test
     {
         public List<char> Path { get; set; }
 
+        public Command()
+        {
+
+        }
+
         public Command(string path)
         {
             Path = path.ToList();
