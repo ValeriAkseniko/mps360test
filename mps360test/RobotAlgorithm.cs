@@ -2,18 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace mps360test
 {
     public class RobotAlgorithm
     {
         const string lost = "LOST";
-        public string GetResult(Robot robot, string path)
-        {            
+        public string GetResult(Robot robot, Command command)
+        {
             bool isLost = false;
-            for (int i = 0; i < path.Length && !isLost; i++)
+            for (int i = 0; i < command.Path.Count && !isLost; i++)
             {
-                switch (path[i])
+                switch (command.Path[i])
                 {
                     case (char)StepOfThePath.L:
                         TurnLeft(robot);
