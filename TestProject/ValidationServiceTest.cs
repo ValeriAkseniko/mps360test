@@ -1,7 +1,4 @@
 using mps360test;
-using mps360test.Enums;
-using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace TestProject
