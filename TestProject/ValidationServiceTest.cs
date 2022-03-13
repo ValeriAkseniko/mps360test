@@ -5,49 +5,50 @@ namespace TestProject
 {
     public class ValidationServiceTest
     {
-        [Fact]
-        public void ValidationCoordinateTest()
+
+        [Theory]
+        [InlineData("1 1 E")]
+        public void ValidationCoordinateTestTrue(string coordinate)
         {
             ValidationService validationService = new ValidationService();
 
-
-            string coordinate1 = "1 1 E";
-            string coordinate2 = "1 1E";
-            string coordinate3 = "8 1 E";
-            string coordinate4 = "1 R E";
-            string coordinate5 = "11 E";
-            string coordinate6 = "1 1 e";
-            string coordinate7 = "1 1 j";
-
-
-            Assert.True(validationService.ValidationCoordinate(coordinate1));
-            Assert.False(validationService.ValidationCoordinate(coordinate2));
-            Assert.False(validationService.ValidationCoordinate(coordinate3));
-            Assert.False(validationService.ValidationCoordinate(coordinate4));
-            Assert.False(validationService.ValidationCoordinate(coordinate5));
-            Assert.False(validationService.ValidationCoordinate(coordinate6));
-            Assert.False(validationService.ValidationCoordinate(coordinate7));
+            Assert.True(validationService.ValidationCoordinate(coordinate));
         }
 
-        [Fact]
-        public void ValidationPathTest()
+        [Theory]
+        [InlineData("1 1E")]
+        [InlineData("8 1 E")]
+        [InlineData("1 R E")]
+        [InlineData("11 E")]
+        [InlineData("1 1 e")]
+        [InlineData("1 1 j")]
+        public void ValidationCoordinateTestFalse(string coordinate)
         {
             ValidationService validationService = new ValidationService();
 
+            Assert.False(validationService.ValidationCoordinate(coordinate));
+        }
 
-            string path1 = "RFLF";
-            string path2 = "R FLF";
-            string path3 = "RFL F";
-            string path4 = "RFlF";
-            string path5 = "RKL1";
-            string path6 = "RFjO";
+        [Theory]
+        [InlineData("RFLF")]
+        public void ValidationPathTestTrue(string path)
+        {
+            ValidationService validationService = new ValidationService();
 
-            Assert.True(validationService.ValidationPath(path1));
-            Assert.False(validationService.ValidationPath(path2));
-            Assert.False(validationService.ValidationPath(path3));
-            Assert.False(validationService.ValidationPath(path4));
-            Assert.False(validationService.ValidationPath(path5));
-            Assert.False(validationService.ValidationPath(path6));
+            Assert.True(validationService.ValidationPath(path));
+        }
+
+        [Theory]
+        [InlineData("R FLF")]
+        [InlineData("RFL F")]
+        [InlineData("RFlF")]
+        [InlineData("RKL1")]
+        [InlineData("RFjO")]
+        public void ValidationPathTestFalse(string path)
+        {
+            ValidationService validationService = new ValidationService();
+
+            Assert.False(validationService.ValidationPath(path));
         }
     }
 }
