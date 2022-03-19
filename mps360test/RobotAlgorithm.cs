@@ -1,18 +1,14 @@
 ﻿using mps360test.Enums;
+using mps360test.Exceptions;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
 
 namespace mps360test
 {
     public class RobotAlgorithm
     {
-        const string lost = "LOST";
         public string GetResult(Robot robot, Command command)
         {
-            bool isLost = false;
-            for (int i = 0; i < command.Path.Count && !isLost; i++)
+            for (int i = 0; i < command.Path.Count && !robot.IsLost; i++)
             {
                 switch (command.Path[i])
                 {
@@ -25,57 +21,30 @@ namespace mps360test
                     case (char)StepOfThePath.F:
                         if (robot.WorldSide == CardinalDirections.N || robot.WorldSide == CardinalDirections.S)
                         {
-                            isLost = !yAxisStep(robot);
+                            robot.IsLost = !yAxisStep(robot);
                         }
                         else
                         {
-                            isLost = !xAxisStep(robot);
+                            robot.IsLost = !xAxisStep(robot);
                         }
                         break;
                 }
             }
-            if (isLost)
+            if (robot.IsLost)
             {
-                return $"{robot.ToString()} {lost}";
+                var ex = new LostException();
+                return $"{robot.AxisX} {robot.AxisY} {Enum.GetName(typeof(CardinalDirections), robot.WorldSide)} {ex.ToString()}";
             }
-            return robot.ToString();
+            return $"{robot.AxisX} {robot.AxisY} {Enum.GetName(typeof(CardinalDirections), robot.WorldSide)}";
         }
 
         public void TurnLeft(Robot robot)
         {
-            switch (robot.WorldSide)
-            {
-                case CardinalDirections.N:
-                    robot.WorldSide = CardinalDirections.W;
-                    break;
-                case CardinalDirections.E:
-                    robot.WorldSide = CardinalDirections.N;
-                    break;
-                case CardinalDirections.S:
-                    robot.WorldSide = CardinalDirections.E;
-                    break;
-                case CardinalDirections.W:
-                    robot.WorldSide = CardinalDirections.S;
-                    break;
-            }
+            robot.WorldSide = (CardinalDirections)((4 + ((int)robot.WorldSide - 1)) % 4);
         }
         public void TurnRight(Robot robot)
         {
-            switch (robot.WorldSide)
-            {
-                case CardinalDirections.N:
-                    robot.WorldSide = CardinalDirections.E;
-                    break;
-                case CardinalDirections.E:
-                    robot.WorldSide = CardinalDirections.S;
-                    break;
-                case CardinalDirections.S:
-                    robot.WorldSide = CardinalDirections.W;
-                    break;
-                case CardinalDirections.W:
-                    robot.WorldSide = CardinalDirections.N;
-                    break;
-            }
+            robot.WorldSide = (CardinalDirections)(((int)robot.WorldSide + 1) % 4);
         }
 
         public bool yAxisStep(Robot robot)
@@ -83,44 +52,40 @@ namespace mps360test
             switch (robot.WorldSide)
             {
                 case CardinalDirections.N:
-                    robot.AxisY++;
-                    break;
+                    if (robot.AxisY < 7 && robot.AxisY > 0)
+                    {
+                        robot.AxisY++;
+                        return true;
+                    }
+                    return false;
                 case CardinalDirections.S:
-                    robot.AxisY--;
-                    break;
-            }
-            if (robot.AxisY > 7)
-            {
-                robot.AxisY--;
-                return false;
-            }
-            if (robot.AxisY < 0)
-            {
-                robot.AxisY++;
-                return false;
+                    if (robot.AxisY < 7 && robot.AxisY > 0)
+                    {
+                        robot.AxisY--;
+                        return true;
+                    }
+                    return false;
             }
             return true;
         }
-        public bool xAxisStep(Robot robot)  
+        public bool xAxisStep(Robot robot)
         {
             switch (robot.WorldSide)
             {
                 case CardinalDirections.E:
-                    robot.AxisX++;
-                    break;
+                    if (robot.AxisX < 7 && robot.AxisX > 0)
+                    {
+                        robot.AxisX--;
+                        return true;
+                    }
+                    return false;
                 case CardinalDirections.W:
-                    robot.AxisX--;
-                    break;
-            }
-            if (robot.AxisX > 7)
-            {
-                robot.AxisX--;
-                return false;
-            }
-            if (robot.AxisX < 0)
-            {
-                robot.AxisX++;
-                return false;
+                    if (robot.AxisX < 7 && robot.AxisX > 0)
+                    {
+                        robot.AxisX++;
+                        return true;
+                    }
+                    return false;
             }
             return true;
         }

@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace mps360test.Enums
+﻿namespace mps360test.Enums
 {
     public enum CardinalDirections
     {
-        N = 'N',
-        E = 'E',
-        S = 'S',
-        W = 'W'
+        N = 0,
+        W = 1,
+        S = 2,
+        E = 3,
     }
 }

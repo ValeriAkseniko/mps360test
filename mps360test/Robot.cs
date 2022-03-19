@@ -12,6 +12,8 @@ namespace mps360test
 
         public CardinalDirections WorldSide { get; set; }
 
+        public bool IsLost { get; set; } 
+
         public Robot()
         {
 
@@ -23,6 +25,7 @@ namespace mps360test
             AxisX = int.Parse(shortCoordinates[0]);
             AxisY = int.Parse(shortCoordinates[1]);
             WorldSide = Enum.Parse<CardinalDirections>(shortCoordinates[2]);
+            IsLost = false;
         }
 
         public override string ToString()

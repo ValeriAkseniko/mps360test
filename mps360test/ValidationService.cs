@@ -6,7 +6,9 @@ namespace mps360test
     {
         public bool ValidationCoordinate(string coordinate)
         {
-            if (Regex.IsMatch(coordinate, @"([0-7]){1}(\s){1}([0-7]){1}(\s){1}([NESW]$){1}"))
+            if (coordinate != null 
+                && coordinate != string.Empty
+                && Regex.IsMatch(coordinate, @"([0-7]){1}(\s){1}([0-7]){1}(\s){1}([NESW]$){1}"))
             {
                 return true;
             }
@@ -15,7 +17,10 @@ namespace mps360test
 
         public bool ValidationPath(string path)
         {
-            if (Regex.IsMatch(path, @"^[LRF]+$"))
+            if (path != null 
+                && path != string.Empty 
+                && path.Length < 100
+                && Regex.IsMatch(path, @"^[LRF]+$"))
             {
                 return true;
             }

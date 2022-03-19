@@ -22,6 +22,8 @@ namespace TestProject
         [InlineData("11 E")]
         [InlineData("1 1 e")]
         [InlineData("1 1 j")]
+        [InlineData(null)]
+        [InlineData(" ")]
         public void ValidationCoordinateTestFalse(string coordinate)
         {
             ValidationService validationService = new ValidationService();
@@ -44,6 +46,9 @@ namespace TestProject
         [InlineData("RFlF")]
         [InlineData("RKL1")]
         [InlineData("RFjO")]
+        [InlineData("RFLRFLFLRLFLRLRLRFLLRLFLRFLFRRLFLRLFLLFRLRLFLRLFLRLFLFLRLFLRLFLFFLFRLFLRLLFLRLFLRLLFLRLLFLRLFLLFLFRRLFLF")]
+        [InlineData(" ")]
+        [InlineData(null)]
         public void ValidationPathTestFalse(string path)
         {
             ValidationService validationService = new ValidationService();
