@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace mps360test
 {
@@ -9,17 +8,17 @@ namespace mps360test
         {
             RobotAlgorithm robotAlgorithm = new RobotAlgorithm();
             ValidationService validationService = new ValidationService();
-            for (int i = 0; i < 100; i++)
+            for (;;)
             {
                 var coordinates = Console.ReadLine();
                 var path = Console.ReadLine();
-                if (!validationService.ValidationCoordinate(coordinates) || coordinates == string.Empty)
+                if (!validationService.ValidationCoordinate(coordinates))
                 {
                     Console.WriteLine("coordinate input error");
                     continue;
                 }
 
-                if (!validationService.ValidationPath(path) || path == string.Empty)
+                if (!validationService.ValidationPath(path))
                 {
                     Console.WriteLine("path input error");
                     continue;

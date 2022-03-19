@@ -1,6 +1,5 @@
 using mps360test;
 using mps360test.Enums;
-using System.Collections.Generic;
 using Xunit;
 
 namespace TestProject
@@ -8,55 +7,105 @@ namespace TestProject
     public class RobotAlgorithmTest
     {
         [Fact]
-        public void TernLeftTest()
+        public void TurnLeftTest()
         {
             RobotAlgorithm robotAlgorithm = new RobotAlgorithm();
 
-            Robot firstRobot = new Robot()
+            Robot firstrobot = new Robot()
             {
-                AxisX = 1,
-                AxisY = 1,
                 WorldSide = CardinalDirections.N
             };
-
             Robot secondRobot = new Robot()
             {
-                AxisX = 1,
-                AxisY = 1,
+                WorldSide = CardinalDirections.E
+            };
+            Robot thirdRobot = new Robot()
+            {
+                WorldSide = CardinalDirections.S
+            };
+            Robot fourthRobot = new Robot()
+            {
                 WorldSide = CardinalDirections.W
             };
 
-            robotAlgorithm.TurnLeft(firstRobot);
-            robotAlgorithm.TurnLeft(secondRobot);
 
-            Assert.Equal(firstRobot.WorldSide, CardinalDirections.W);
-            Assert.Equal(secondRobot.WorldSide, CardinalDirections.S);
+            Robot firstResult = new Robot()
+            {
+                WorldSide = CardinalDirections.E
+            };
+            Robot secondResult = new Robot()
+            {
+                WorldSide = CardinalDirections.S
+            };
+            Robot thirdResult = new Robot()
+            {
+                WorldSide = CardinalDirections.W
+            };
+            Robot fourthResult = new Robot()
+            {
+                WorldSide = CardinalDirections.N
+            };
+
+            robotAlgorithm.TurnLeft(firstrobot);
+            robotAlgorithm.TurnLeft(secondRobot);
+            robotAlgorithm.TurnLeft(thirdRobot);
+            robotAlgorithm.TurnLeft(fourthRobot);
+
+            Assert.Equal(firstrobot.WorldSide, firstResult.WorldSide);
+            Assert.Equal(secondRobot.WorldSide, secondResult.WorldSide);
+            Assert.Equal(thirdRobot.WorldSide, thirdResult.WorldSide);
+            Assert.Equal(fourthRobot.WorldSide, fourthResult.WorldSide);
         }
 
         [Fact]
-        public void TernRightTest()
+        public void TurnRightTest()
         {
             RobotAlgorithm robotAlgorithm = new RobotAlgorithm();
 
-            Robot firstRobot = new Robot()
+            Robot firstrobot = new Robot()
             {
-                AxisX = 1,
-                AxisY = 1,
                 WorldSide = CardinalDirections.N
             };
-
             Robot secondRobot = new Robot()
             {
-                AxisX = 1,
-                AxisY = 1,
+                WorldSide = CardinalDirections.E
+            };
+            Robot thirdRobot = new Robot()
+            {
+                WorldSide = CardinalDirections.S
+            };
+            Robot fourthRobot = new Robot()
+            {
                 WorldSide = CardinalDirections.W
             };
 
-            robotAlgorithm.TurnRight(firstRobot);
-            robotAlgorithm.TurnRight(secondRobot);
 
-            Assert.Equal(firstRobot.WorldSide, CardinalDirections.E);
-            Assert.Equal(secondRobot.WorldSide, CardinalDirections.N);
+            Robot firstResult = new Robot()
+            {
+                WorldSide = CardinalDirections.W
+            };
+            Robot secondResult = new Robot()
+            {
+                WorldSide = CardinalDirections.N
+            };
+            Robot thirdResult = new Robot()
+            {
+                WorldSide = CardinalDirections.E
+            };
+            Robot fourthResult = new Robot()
+            {
+                WorldSide = CardinalDirections.S
+            };
+
+            robotAlgorithm.TurnRight(firstrobot);
+            robotAlgorithm.TurnRight(secondRobot);
+            robotAlgorithm.TurnRight(thirdRobot);
+            robotAlgorithm.TurnRight(fourthRobot);
+
+            Assert.Equal(firstrobot.WorldSide, firstResult.WorldSide);
+            Assert.Equal(secondRobot.WorldSide, secondResult.WorldSide);
+            Assert.Equal(thirdRobot.WorldSide, thirdResult.WorldSide);
+            Assert.Equal(fourthRobot.WorldSide, fourthResult.WorldSide);
         }
 
         [Fact]
@@ -107,8 +156,8 @@ namespace TestProject
             robotAlgorithm.xAxisStep(firstRobot);
             robotAlgorithm.xAxisStep(secondRobot);
 
-            Assert.Equal(2, firstRobot.AxisX);
-            Assert.Equal(0, secondRobot.AxisX);
+            Assert.Equal(0, firstRobot.AxisX);
+            Assert.Equal(2, secondRobot.AxisX);
         }
 
         [Fact]
@@ -116,48 +165,31 @@ namespace TestProject
         {
             RobotAlgorithm robotAlgorithm = new RobotAlgorithm();
 
-            Robot firstRobot = new Robot()
-            {
-                AxisX = 0,
-                AxisY = 2,
-                WorldSide = CardinalDirections.E
-            };
-            Robot firstResult = new Robot()
-            {
-                AxisX = 1,
-                AxisY = 1,
-                WorldSide = CardinalDirections.E
-            };
+            string firstCoordinate = "1 1 E";
+            string firstPath = "RFRFRFRF";
+            string firstCorrectResult = "1 1 E";
+            Robot firstRobot = new Robot(firstCoordinate);
+            Command firstCommand = new Command(firstPath);
 
-            Robot secondRobot = new Robot()
-            {
-                AxisX = 3,
-                AxisY = 5,
-                WorldSide = CardinalDirections.N
-            };
+            string secondCoordinate = "3 2 N";
+            string secondPath = "FRRFFFRFLFFLRF";
+            string secondCorrectResult = "2 0 S LOST";
+            Robot secondRobot = new Robot(secondCoordinate);
+            Command secondCommand = new Command(secondPath);
 
-            Robot secondResult = new Robot()
-            {
-                AxisX = 4,
-                AxisY = 6,
-                WorldSide = CardinalDirections.N
-            };
+            string thirdCoordinate = "0 1 W";
+            string thirdPath = "LLFFFLFLFL";
+            string thirdCorrectResult = "0 1 E LOST";
+            Robot thirdRobot = new Robot(thirdCoordinate);
+            Command thirdCommand = new Command(thirdPath);
 
-            Command command = new Command()
-            {
-                Path = new List<char>() { 'R', 'F', 'L', 'F' }
-            };
+            string firstResult = robotAlgorithm.GetResult(firstRobot, firstCommand);
+            string secondResult = robotAlgorithm.GetResult(secondRobot, secondCommand);
+            string thirdResult = robotAlgorithm.GetResult(thirdRobot, thirdCommand);
 
-            robotAlgorithm.GetResult(firstRobot, command);
-            robotAlgorithm.GetResult(secondRobot, command);
-
-            Assert.Equal(firstResult.AxisX, firstRobot.AxisX);
-            Assert.Equal(firstResult.AxisY, firstRobot.AxisY);
-            Assert.Equal(firstResult.WorldSide, firstResult.WorldSide);
-
-            Assert.Equal(secondResult.AxisX, secondRobot.AxisX);
-            Assert.Equal(secondResult.AxisY, secondRobot.AxisY);
-            Assert.Equal(secondResult.WorldSide, secondRobot.WorldSide);
+            Assert.Equal(firstResult, firstCorrectResult);
+            Assert.Equal(secondResult, secondCorrectResult);
+            Assert.Equal(thirdResult, thirdCorrectResult);
         }
     }
 }
